@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Posts</title>
+{% endblock %}
+
+<hr>
+<h2>Create new blog post:</h2>
+<form action="/posts" method='POST'>
+
+</form>
+<hr>
+
+{% block body %}
+<h3>Posts</h3>
+{% for post in posts %}
+<p>{{ post.title }} : {{ post.content }}</p>
+{% if post.author %}
+<li>By:  {{ post.author }}</li>
+{% else %}
+<li>By: N/A </li>
+{% endif %}
+{% endfor %}
+{% endblock %}
