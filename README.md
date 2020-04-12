@@ -7,3 +7,5 @@ One should have Python, basics and minimal html, css knowledge, and a coding edi
 
 Flask tutorial less than 3 hours:
 https://www.youtube.com/watch?v=3mwFC4SHY-Y
+
+~[Flask Blog App](https://github.com/palden/aaronflask/blob/master/flask_blog.jpg)
