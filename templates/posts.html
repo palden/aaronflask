@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Posts</title>
+<title>P o s t s</title>
 {% endblock %}
+
+{% block body %}
+
+<h3>Posts</h3>
 
 <hr>
 <h2>Create new blog post:</h2>
 <form action="/posts" method='POST'>
-
+	Title: <input type="text" name="title" id="title">
+	<br>
+	Content: <input type="text" name="content" id="content">
+	<br>
+	<input type="submit" value="Post">
 </form>
 <hr>
 
-{% block body %}
-<h3>Posts</h3>
 {% for post in posts %}
 <p>{{ post.title }} : {{ post.content }}</p>
 {% if post.author %}

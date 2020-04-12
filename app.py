@@ -1,10 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(app)
+
 
 class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,13 +42,24 @@ def hello():
     return render_template('index.html')
 
 
-@app.route('/posts', methods=['GET','POST'])
+@app.route('/posts', methods=['GET', 'POST'])
 def posts():
-    return render_template('posts.html', posts=all_posts)
+    if request.method == 'POST':
+        post_title = request.form['title']
+        post_content = request.form['content']
+        new_post = BlogPost(title=post_title, content=post_content, author='Aaron')
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect('/posts')
+    else:
+        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+        return render_template('posts.html', posts=all_posts)
+
 
 @app.route('/onlyget', methods=['GET'])
 def only_get():
     return "Only respond to get request"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
